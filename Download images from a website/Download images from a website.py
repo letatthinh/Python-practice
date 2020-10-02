@@ -8,13 +8,11 @@ Reference: https://towardsdatascience.com/how-to-download-an-image-using-python-
 # Importing necessary modules
 import requests
 from bs4 import BeautifulSoup
-from urllib.request import urlretrieve
-import os 
-
+# from urllib.request import urlretrieve
+import os
 
 def readPage(_url):
-    response = requests.get(_url)
-    htmlData = BeautifulSoup(response.text, 'html.parser')
+    htmlData = BeautifulSoup(requests.get(_url).text, 'lxml')
     return htmlData
 
 def downloadImagesFromUrl(_url, _cssSelector, _fileAttribute):
@@ -42,10 +40,14 @@ def downloadImagesFromUrl(_url, _cssSelector, _fileAttribute):
         count = count + 1
 
 
-url = 'https://www.nettruyen.com/truyen-tranh/toi-thang-cap-mot-minh/chap-110/550446'
-cssSelector = 'div.reading-detail div[id^="page"] img'
+url = 'https://allporncomic.com/porncomic/ay-papi-jabcomix/0-ay-papi/?asgtbndr=1'
+cssSelector = 'img'
+"""
+thiendia: blockquote.messageText b img[src^='http']
+nettruyen: div.reading-detail div[id^="page"] img
+"""
 fileAttribute = {
-    'filename': 'Solo leveling_Chapter 106_',
+    'filename': 'The Two Newcomers_Chap 1_',
     'filetype': 'jpg'
 }
 downloadImagesFromUrl(url, cssSelector, fileAttribute)
